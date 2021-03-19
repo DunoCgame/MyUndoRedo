@@ -1,0 +1,249 @@
+<html>
+<head>
+
+</head>
+<body>
+	<center>
+			<div id="Cuadro" style="white:200px; height:200px; background:grey; border:1px solid black;"></div>
+			<br>
+			<button onclick="Red();">Red</button>
+			<button onclick="Blue();">Blue</button>
+			<button onclick="Green();">Green</button>
+			<button onclick="Orange();">Orange</button>
+			<button onclick="Purple();">Purple</button>
+		<br>
+		<span id="showdata"></span>
+		<h3>
+			<br>
+				<span>Pos:</span><span id="pos"></span>
+			<br>	
+				<span>Undo-state:</span><span id="Undo-state"></span>
+			<br>
+				<span>Redo-state:</span><span id="Redo-state"></span>
+			<br>
+		</h3>
+			<button  id="undo" onclick="Undo();">Undo</button>		
+			<button  id="redo" onclick="Redo();">Redo</button>
+			<button  id="Save" onclick="Save();">Save</button>
+			
+			<hr>
+<div id="content" class="ga" style="background:blue"><h2 id="h2" style="color:white">Hola</h2><h3 style="color:black">Mundo</h3><img src="https://raw.githubusercontent.com/DunoCgame/HorizonFrontierJs/master/Horizon.png" id="ImgHorizonId" class="ImgHorizonClass"height="100px" width="100px"></div>
+				<!-- <button  id="carga" onclick="Save();">carga</button> -->
+			
+	</center>
+</body>
+
+<script >
+
+<!-- https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/Array -->
+
+let Posdata = document.getElementById("pos");
+let dataShow = document.getElementById("showdata");
+
+let UndoButton = document.getElementById("undo");
+let RedoButton = document.getElementById("redo");
+
+let Undostate = document.getElementById("Undo-state");
+let Redostate = document.getElementById("Redo-state");
+
+
+let contents=document.getElementById("content");
+let h2=document.getElementById("h2");
+
+<!-- console.log(contents.id); -->
+<!-- console.log(contents.className); -->
+<!-- console.log(contents.style.background); -->
+<!-- console.log(contents.hasChildNodes()); -->
+<!-- console.log(contents.childNodes); -->
+<!-- console.log(contents.childNodes.length); -->
+<!-- console.log(contents.childNodes[0]); -->
+<!-- console.log(contents.childNodes[0].id); -->
+<!-- console.log(contents.childNodes[0].style.color); -->
+<!-- console.log(contents.childNodes[0].innerText); -->
+
+
+<!-- <!-- Prop IMG --> -->
+<!-- console.log("IMAGEN"); -->
+<!-- console.log(contents.childNodes[2]); -->
+<!-- console.log(contents.childNodes[2].id); -->
+<!-- console.log(contents.childNodes[2].className); -->
+<!-- console.log(contents.childNodes[2].src); -->
+<!-- console.log(contents.childNodes[2].height); -->
+<!-- console.log(contents.childNodes[2].width); -->
+<!-- console.log(contents.childNodes[2].outerHTML); -->
+<!-- console.log(); -->
+
+
+function UndoRedo(){
+
+let pos=0;
+let SaveDate=[];
+
+this.Save=function(data){
+<!-- Guardado -->
+	if(data!=undefined || data!=null){
+		SaveDate.push(data);
+		pos = SaveDate.length-1;		
+		
+		}
+		console.log(SaveDate);
+		Posdata.innerHTML=pos //bug
+	}
+
+this.Undo = function(){
+	<!-- DESHACER -->
+		if(pos>0 && SaveDate.length>0){		
+						pos-=1;
+						Posdata.innerHTML=pos //bug
+					}
+					return SaveDate[pos];
+
+
+}
+
+this.Redo = function(){
+<!-- REHACER -->
+		if(pos<(SaveDate.length-1)){		
+						pos+=1;	
+						Posdata.innerHTML=pos //bug						
+					}
+					return SaveDate[pos];
+
+
+}
+
+this.State = function(){
+
+	if(SaveDate.length>0){
+		if(pos!=0){					
+					return true;
+				}
+				else{
+					return false;				
+				}	
+
+	}
+
+}
+
+}
+
+let History = new UndoRedo();
+let colorActual;
+
+
+function Guardar(){
+
+History.Save(cuadro.style.background);
+
+}
+
+window.onload = function() {
+	History.Save(cuadro.style.background);
+	Posdata.innerHTML = "";
+}
+
+function Undo(){
+	
+	cuadro.style.background = History.Undo();
+statebuton();
+
+}
+
+function Redo(){
+
+	cuadro.style.background = History.Redo();
+	statebuton();
+	
+}
+
+
+
+
+
+let cuadro = document.getElementById("Cuadro");
+
+function Red(){
+	
+	 cuadro.style.background="red";
+	h2.style.color="red";
+	 
+	 Guardar();
+
+
+statebuton();
+ }
+ 
+function Blue(){
+	
+	 cuadro.style.background="blue";
+	 Guardar();
+
+statebuton();
+}
+ 
+function Green(){
+	
+	 cuadro.style.background="green";
+	 Guardar();
+
+statebuton();	 
+}
+	 
+function Orange(){
+	
+	 cuadro.style.background="Orange";
+	 Guardar();
+
+statebuton();	
+}
+	 
+function Purple(){
+	
+	 cuadro.style.background="Purple";
+	 Guardar();
+
+statebuton();
+	 
+}
+
+function statebuton(){
+		if( History.State()==true){
+
+			UndoButton.style.background="red";
+			RedoButton.style.background="white";
+			
+		}
+		else{
+
+			UndoButton.style.background="white";
+			RedoButton.style.background="red";
+
+		}
+}
+
+
+function Save(){
+		console.log("New Save");
+		<!-- History.Save(contents.outerHTML); -->
+		<!-- History.Save(contents.childNodes.h2); -->
+		History.Save(contents.id);
+		statebuton();
+}
+
+
+
+let Val=()=>{
+	console.log("Val1");
+}
+
+function Val2(){
+	console.log("Val2");
+
+}
+</script>
+</html>
+
+
+
+
