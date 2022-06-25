@@ -1,6 +1,6 @@
 {
-  "name": "QuickUndoRed",
-  "version": "1.0.0",
+  "name": "QuickUndoRedo",
+  "version": "1.0.1",
   "description":"Module for the implementation of the function to redo and undo",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

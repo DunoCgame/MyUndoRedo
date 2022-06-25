@@ -26,4 +26,7 @@ These functions return the stored information undo returns the previous informat
 
 ## Example
 
+![](Example1.png)
+
+![](Example2.png)
 
