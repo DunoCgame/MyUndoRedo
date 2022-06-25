@@ -22,6 +22,7 @@ Save function receives the information to be stored
 >History.Redo();  and History.Undo();
 
 These functions return the stored information undo returns the previous information while the redo function returns the most current information stored
+ 
 
 ## Example
 
