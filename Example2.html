@@ -33,8 +33,12 @@ background:grey;
 let BorrarTodo = document.getElementById("BorrarTodo");
 	BorrarTodo.onclick = function(){document.getElementById("myTextarea").value=" "};
 
+window.onload = function(){
+	History.Save(document.getElementById("myTextarea").value);
+}
+
 	//Obtener data Textarea
-document.addEventListener('keydown', (event) => {
+document.addEventListener('keyup', (event) => {
 		//console.log(document.getElementById("myTextarea").value);
 		History.Save(document.getElementById("myTextarea").value);
 		statebuton();
@@ -50,10 +54,6 @@ function CargarData(data){
 	}
 //guardado
 let History = new UndoRedo();
-
-window.onload = function(){
-	History.Save(document.getElementById("myTextarea").value);
-}
 
 function Undo(){
 
@@ -86,6 +86,9 @@ function statebuton(){
 			RedoButton.style.color ="green";
 
 		}
+		
+		
+		//console.log(History.Debug());
 }
 
 

@@ -2,7 +2,11 @@ function UndoRedo(){
 
 	let pos=0;
 	let SaveDate=[];
-
+	
+	//~ console.log(SaveDate);
+	this.Debug=function(){
+		 return SaveDate;
+	}
 	//Guardado
 	this.Save=function(data){
 	 if(data!=undefined || data!=null){ SaveDate.push(data); pos = SaveDate.length-1; }
