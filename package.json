@@ -1,5 +1,5 @@
 {
-  "name": "QuickUndoRedo",
+  "name": "quick_undo_redo",
   "version": "1.0.1",
   "description":"Module for the implementation of the function to redo and undo",
   "scripts": {
