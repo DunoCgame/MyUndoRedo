@@ -3,19 +3,19 @@ function UndoRedo(){
 	let pos=0;
 	let SaveDate=[];
 
-	// Guardado
+	//Guardado
 	this.Save=function(data){
-		if(data!=undefined || data!=null){ SaveDate.push(data); pos = SaveDate.length-1; }
+	 if(data!=undefined || data!=null){ SaveDate.push(data); pos = SaveDate.length-1; }
 		
 	}
 
-	// DESHACER
+	//DESHACER
 	this.Undo=function(){
 			if(pos>0 && SaveDate.length>0){	pos-=1; }
 						return SaveDate[pos];
 	}
 
-	// REHACER 
+	//REHACER 
 	this.Redo=function(){
 			if(pos<(SaveDate.length-1)){ pos+=1;		}
 						return SaveDate[pos];
@@ -23,7 +23,7 @@ function UndoRedo(){
 
 	//Estado
 	this.State=function(){
-		if(SaveDate.length>0){
+		if(SaveDate.length>=0){
 			if(pos!=0){return true; }
 					   else{ return false;	}
 		}

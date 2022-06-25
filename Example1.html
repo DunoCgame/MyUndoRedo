@@ -1,0 +1,149 @@
+<html>
+	<head>
+		<style>
+		*{
+			margin:3px;
+			padding:0px;
+		}
+		.content{
+
+			display:flex;
+			flex-direction:row;
+			justify-content:center;
+			padding:20px;
+
+		}
+		.square_class{
+			padding:60px;
+			margin:10px;
+			}
+			
+		.btn{
+			width:100px;
+			height:50px;
+			font-size:30px;
+			
+			}
+		</style>
+	</head>
+<body>
+
+
+<div id="Content_Cuadros" class="content" style="background:#595959"><div id='square1'  class="square_class" style="background:#0000ff"></div><div id='square2'  class="square_class" style="background:#ff0000"></div><div id='square3'  class="square_class" style="background:#ffff00"></div></div>
+	
+<center> 
+<label>Color-Content</label><input type="color" id="favcolor" name="favcolor" value="#595959" onchange="cambiarcolor()" >
+<hr>
+<label>Color-Cuadro1</label><input type="color" id="favcolor1" name="favcolor" value="#0000ff" onchange="cambiarcolor1()" >
+
+<label>Color-Cuadro2</label><input type="color" id="favcolor2" name="favcolor" value="#ff0000" onchange="cambiarcolor2()" >
+
+<label>Color-Cuadro3</label><input type="color" id="favcolor3" name="favcolor" value="#ffff00" onchange="cambiarcolor3()" >
+
+<hr>
+
+
+<button  class="btn" onclick="Almacenar()">Save</button>
+<button  class="btn" onclick="Cargardata()">Cargar</button>
+
+<button  class="btn" id="undo" onclick="Undo();">Undo</button>		
+<button  class="btn" id="redo" onclick="Redo();">Redo</button>
+
+</center> 
+</body>	
+
+<script src="CapturaData.js"></script>
+<script src="UndoRedo.js"></script>
+
+<script>
+
+
+let StateImagen = true;
+
+function cambiarcolor(){
+	let color = document.getElementById("favcolor").value;
+	document.getElementById("Content_Cuadros").style.backgroundColor = color;
+	
+	Almacenar();
+}
+
+function cambiarcolor1(){
+	let color = document.getElementById("favcolor1").value;
+	document.getElementById("square1").style.backgroundColor = color;
+	
+	Almacenar();
+}
+
+function cambiarcolor2(){
+	let color = document.getElementById("favcolor2").value;
+	document.getElementById("square2").style.backgroundColor = color;
+	
+	Almacenar();
+}
+
+function cambiarcolor3(){
+	let color = document.getElementById("favcolor3").value;
+	document.getElementById("square3").style.backgroundColor = color;
+	
+	Almacenar();
+}
+
+
+
+let History = new UndoRedo();
+let CargaGardar = new CaptureCargaData("Content_Cuadros","square_class")
+
+
+let UndoButton = document.getElementById("undo");
+let RedoButton = document.getElementById("redo");
+
+
+window.onload = function(){
+	History.Save(CargaGardar.CaptureDataLienso());
+}
+
+
+function Undo(){
+
+	CargaGardar.CargaData(History.Undo());
+statebuton();
+}
+
+function Redo(){
+
+	CargaGardar.CargaData(History.Redo());
+	statebuton();
+}
+
+function Almacenar(){
+	
+	History.Save(CargaGardar.CaptureDataLienso());
+	//console.log(CargaGardar.CaptureDataLienso());
+	statebuton();
+	
+}
+
+function Cargardata(){
+		CargaGardar.CargaData(History.Redo());
+}
+
+function statebuton(){
+	
+	//~ console.log(History.State())
+		if( History.State()==true){
+
+			UndoButton.style.color ="green";
+			RedoButton.style.color ="grey";
+			
+		}
+		else{
+
+			UndoButton.style.color ="grey";
+			RedoButton.style.color ="green";
+
+		}
+}
+</script>
+
+
+</html>

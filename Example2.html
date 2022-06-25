@@ -1,0 +1,95 @@
+<html>
+<head>
+<style>
+	
+	
+#myTextarea{
+	width:100%;
+	height:350px;
+	
+	}
+.btn{
+	padding:5px;
+	font-size:20px;
+	
+	}
+
+</style>
+</head>
+<body>
+	<center>
+		<button class="btn" id="undo" onclick="Undo();">Undo</button>		
+		<button class="btn" id="redo" onclick="Redo();">Redo</button>
+		<button class="btn" id="BorrarTodo" onclick="BorrarTodo();">BorrarTodo</button>
+		<hr>
+		<Textarea id="myTextarea"></Textarea>
+	</center>
+</body>
+<script src="UndoRedo.js"></script>
+<script>
+	//Limpiar textarea
+let BorrarTodo = document.getElementById("BorrarTodo");
+	BorrarTodo.onclick = function(){document.getElementById("myTextarea").value=" "};
+
+	//Obtener data Textarea
+document.addEventListener('keydown', (event) => {
+		//console.log(document.getElementById("myTextarea").value);
+		History.Save(document.getElementById("myTextarea").value);
+		statebuton();
+}, false);
+
+let UndoButton = document.getElementById("undo");
+let RedoButton = document.getElementById("redo");
+
+//cargar data
+function CargarData(data){
+	//console.log('data'+data)
+	document.getElementById("myTextarea").value=data;
+	}
+//guardado
+let History = new UndoRedo();
+
+window.onload = function(){
+	History.Save(document.getElementById("myTextarea").value);
+}
+
+function Undo(){
+
+	CargarData(History.Undo());
+	statebuton();
+	
+}
+
+function Redo(){
+
+	CargarData(History.Redo());
+	statebuton();
+	
+}
+
+
+
+function statebuton(){
+	
+	//~ console.log(History.State())
+		if( History.State()==true){
+
+			UndoButton.style.color ="green";
+			RedoButton.style.color ="grey";
+			
+		}
+		else{
+
+			UndoButton.style.color ="grey";
+			RedoButton.style.color ="green";
+
+		}
+}
+
+
+</script>
+</html>
+
+
+
+
